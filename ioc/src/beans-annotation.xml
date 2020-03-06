@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--指定Spring Ioc容器扫描的包-->
+    <!--
+        <context:component-scan base-package="com.yczlab.spring.beans.annotation"/>
+    -->
+
+
+    <!--可以通过resource-pattern指定扫描的资源-->
+    <!--
+        <context:component-scan
+                base-package="com.yczlab.spring.beans.annotation"
+                resource-pattern="repository/*.class">
+        </context:component-scan>
+    -->
+
+    <!-- context:exclude-filter 子节点指定排除哪些指定表达式的组件 -->
+    <!--
+        <context:component-scan base-package="com.yczlab.spring.beans.annotation">
+            <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+        </context:component-scan>
+    -->
+
+
+    <!-- context:include-filter 子节点指定包含哪些指定表达式的组件，该子节点需要与use-default-filters="false"配合使用 -->
+    <!--
+        <context:component-scan base-package="com.yczlab.spring.beans.annotation" use-default-filters="false">
+            <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        </context:component-scan>
+    -->
+
+    <!--type="assignable"的context:exclude-filter子节点-->
+    <!--
+        <context:component-scan base-package="com.yczlab.spring.beans.annotation">
+            <context:exclude-filter type="assignable" expression="com.yczlab.spring.beans.annotation.repository.UserRepository"/>
+        </context:component-scan>
+    -->
+
+    <!--type="assignable"的context:include-filter子节点，该子节点需要与use-default-filters="false"配合使用-->
+    <context:component-scan base-package="com.yczlab.spring.beans.annotation" use-default-filters="false">
+        <context:include-filter type="assignable" expression="com.yczlab.spring.beans.annotation.repository.UserRepository"/>
+    </context:component-scan>
+
+</beans>
