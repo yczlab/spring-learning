@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--Spring IOC容器对Bean生命周期进行管理的过程：
+            - 通过构造器或工厂方法创建Bean实例
+            - 为Bean的属性设置值和对其他Bean的引用
+            - 调用Bean的初始化方法
+            - 正常使用Bean
+            - 当容器关闭时，调用Bean的销毁方法
+    -->
+    <bean id="car" class="com.yczlab.spring.beans.cycle.Car"
+          init-method="init" destroy-method="destroy">
+        <property name="brand" value="Audi"/>
+    </bean>
+
+    <!-- 配置Bean后置处理器，实现更细粒度的控制
+        实现BeanPostProcessor接口，并提供
+        postProcessBeforeInitialization(Object bean, String beanName)：在init-method之前被调用
+        postProcessAfterInitialization(Object bean, String beanName)：在destroy-method之后被调用
+        以上两个方法的实现
+
+        bean：bean实例本身
+        beanName：IOC容器配置的bean的名字，即唯一表示id
+        返回值：是实际上返回给用户的那个Bean，注意：可以在以上两个方法中修改返回的bean，甚至返回一个新的bean
+    -->
+    <!--配置bean的后置处理器：不需要配置id，IOC容器自动识别是一个BeanPostProcesser-->
+    <bean class="com.yczlab.spring.beans.cycle.MyBeanPostProcessor"></bean>
+
+    <!--配置了Bean后置处理器后，Spring IOC容器对Bean生命周期进行管理的过程：
+            - 通过构造器或工厂方法创建Bean实例
+            - 为Bean的属性设置值和对其他Bean的引用
+            - 将Bean实例传递给Bean后置处理器的postProcessBeforeInitialization()方法
+            - 调用Bean的初始化方法
+            - 将将Bean实例传递给Bean后置处理器的postProcessAfterInitialization()方法
+            - 正常使用Bean
+            - 当容器关闭时，调用Bean的销毁方法
+    -->
+
+</beans>
