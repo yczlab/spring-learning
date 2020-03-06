@@ -1,18 +1,21 @@
-package com.yczlab.spring.beans;
+package com.yczlab.spring.beans.collections;
 
-public class Person {
+import com.yczlab.spring.beans.Car;
+
+import java.util.List;
+
+public class ListPerson {
     private String name;
     private int age;
 
-    private Car car;
+    private List<Car> cars;
 
-    public Person() {
+    public ListPerson() {
     }
-
-    public Person(String name, int age, Car car) {
+    public ListPerson(String name, int age, List<Car> cars) {
         this.name = name;
         this.age = age;
-        this.car = car;
+        this.cars = cars;
     }
 
     public String getName() {
@@ -27,11 +30,11 @@ public class Person {
     public void setAge(int age) {
         this.age = age;
     }
-    public Car getCar() {
-        return car;
+    public List<Car> getCars() {
+        return cars;
     }
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCars(List<Car> cars) {
+        this.cars = cars;
     }
 
     @Override
@@ -39,7 +42,7 @@ public class Person {
         return "ListPerson{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", car=" + car +
+                ", cars=" + cars +
                 '}';
     }
 }

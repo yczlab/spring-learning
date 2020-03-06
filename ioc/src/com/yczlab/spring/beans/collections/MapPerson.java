@@ -1,18 +1,21 @@
-package com.yczlab.spring.beans;
+package com.yczlab.spring.beans.collections;
 
-public class Person {
+import com.yczlab.spring.beans.Car;
+
+import java.util.Map;
+
+public class MapPerson {
     private String name;
     private int age;
 
-    private Car car;
+    private Map<String, Car> cars;
 
-    public Person() {
+    public MapPerson() {
     }
-
-    public Person(String name, int age, Car car) {
+    public MapPerson(String name, int age, Map<String, Car> cars) {
         this.name = name;
         this.age = age;
-        this.car = car;
+        this.cars = cars;
     }
 
     public String getName() {
@@ -27,19 +30,19 @@ public class Person {
     public void setAge(int age) {
         this.age = age;
     }
-    public Car getCar() {
-        return car;
+    public Map<String, Car> getCars() {
+        return cars;
     }
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCars(Map<String, Car> cars) {
+        this.cars = cars;
     }
 
     @Override
     public String toString() {
-        return "ListPerson{" +
+        return "MapPerson{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
-                ", car=" + car +
+                ", cars=" + cars +
                 '}';
     }
 }
