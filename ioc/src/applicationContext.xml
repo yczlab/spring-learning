@@ -3,4 +3,65 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <!--
+        配置bean：
+        class：bean的全类名，通过反射的方式在IOC容器中创建Bean，所以要求Bean中必须有无参的构造器
+        id：标识容器中的bean，di是唯一的。
+    -->
+    <bean id="helloWorld2" class="com.yczlab.spring.beans.HelloWorld">
+        <property name="name" value="yczlab"></property>
+    </bean>
+    <bean id="helloWorld" class="com.yczlab.spring.beans.HelloWorld">
+        <property name="name" value="yczlab"></property>
+    </bean>
+
+    <!--通过构造方法来配置bean的属性-->
+    <bean id="car" class="com.yczlab.spring.beans.Car">
+        <constructor-arg value="Audi" index="0"></constructor-arg>
+        <constructor-arg value="ShangHai" index="1"></constructor-arg>
+        <constructor-arg value="300000" index="2" type="double"></constructor-arg>
+    </bean>
+    <!--使用构造器注入属性值可以指定参数的位置和参数的类型！以区分重载的构造器-->
+    <bean id="car2" class="com.yczlab.spring.beans.Car">
+        <constructor-arg value="Baoma" type="java.lang.String"></constructor-arg>
+        <!--如果字面值包含特殊字符，可以使用<![CDATA[]]> 包裹起来-->
+        <!--属性值也可以使用value子节点进行配置-->
+        <constructor-arg type="java.lang.String">
+            <value><![CDATA[<ShanHai^>]]></value>
+        </constructor-arg>
+        <constructor-arg type="int">
+            <value>250</value>
+        </constructor-arg>
+    </bean>
+
+    <bean id="person" class="com.yczlab.spring.beans.Person">
+        <property name="name" value="Tom"></property>
+        <property name="age" value="24"></property>
+        <!--可以使用property的ref属性或ref建立bean之间的引用关系-->
+        <!-- <property name="car" ref="car2"></property> -->
+        <!--
+        <property name="car">
+            <ref bean="car2"></ref>
+        </property>
+        -->
+        <!--也可以使用内部bean，内部bean不能被外部使用，只能在内部使用，所以id属性没必要-->
+        <property name="car">
+            <bean class="com.yczlab.spring.beans.Car">
+                <constructor-arg value="Ford"></constructor-arg>
+                <constructor-arg value="ChangAn"></constructor-arg>
+                <constructor-arg value="200000" type="double"></constructor-arg>
+            </bean>
+        </property>
+    </bean>
+    <bean id="person2" class="com.yczlab.spring.beans.Person">
+        <constructor-arg value="Jerry"></constructor-arg>
+        <constructor-arg value="25"></constructor-arg>
+        <!-- <constructor-arg ref="car"></constructor-arg> -->
+        <!--测试null值，属性为引用数据类型时，可以为其赋值为null，意义不大，因为这类数据默认初始化值就是null-->
+        <!-- <constructor-arg><null/></constructor-arg> -->
+        <constructor-arg ref="car"></constructor-arg>
+        <!-- 为级联属性赋值。注意：属性（car）需要先初始化后才能为级联属性赋值，否则会有异常 -->
+        <property name="car.maxSpeed" value="250"></property>
+    </bean>
+
 </beans>
