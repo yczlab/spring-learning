@@ -18,5 +18,9 @@ public class Main {
         System.out.println("*************************");
         DataSource dataSource = context.getBean(DataSource.class);
         System.out.println(dataSource.getProperties());
+
+        System.out.println("*************************");
+        ListPerson listPerson1 = (ListPerson) context.getBean("listPerson1");
+        System.out.println(listPerson1);
     }
 }

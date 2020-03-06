@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uitl="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--
         配置bean：
@@ -110,6 +110,15 @@
         </property>
     </bean>
 
-    <!--配置独立的集合Bean，以供多个Bean进行引用-->
+    <!--配置独立的集合Bean，以供多个Bean进行引用。需导入util命名空间-->
+    <uitl:list id="cars">
+        <ref bean="car"></ref>
+        <ref bean="car2"/>
+    </uitl:list>
+    <bean id="listPerson1" class="com.yczlab.spring.beans.collections.ListPerson">
+        <property name="name" value="Jack"></property>
+        <property name="age" value="29"></property>
+        <property name="cars" ref="cars"></property>
+    </bean>
 
 </beans>
