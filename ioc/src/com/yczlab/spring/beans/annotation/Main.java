@@ -10,6 +10,7 @@ public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("beans-annotation.xml");
 
+        /*//通过注解的方式配置bean（1）
         TestObject testObject = (TestObject) context.getBean("testObject");
         System.out.println(testObject);
 
@@ -21,6 +22,11 @@ public class Main {
 
         UserRepository userRepository = (UserRepository) context.getBean("userRepository");
         System.out.println(userRepository);
+        */
 
+        //通过注解的方式配置bean（2），主要是bean之间的关联关系
+        UserController userController = (UserController) context.getBean("userController");
+        System.out.println(userController);
+        userController.execute();
     }
 }
