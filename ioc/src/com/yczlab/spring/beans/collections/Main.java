@@ -22,5 +22,9 @@ public class Main {
         System.out.println("*************************");
         ListPerson listPerson1 = (ListPerson) context.getBean("listPerson1");
         System.out.println(listPerson1);
+
+        System.out.println("*************************");
+        ListPerson listPerson2 = (ListPerson) context.getBean("listPerson2");
+        System.out.println(listPerson2);
     }
 }

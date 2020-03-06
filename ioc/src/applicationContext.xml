@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:uitl="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
 
     <!--
@@ -120,5 +121,9 @@
         <property name="age" value="29"></property>
         <property name="cars" ref="cars"></property>
     </bean>
+
+    <!-- 通过 p 命名空间为bean的属性赋值，需要先导入 p 命名空间。相对于传统的配置方式更加的简洁。 -->
+    <bean id="listPerson2" class="com.yczlab.spring.beans.collections.ListPerson"
+          p:age="30" p:name="Queen" p:cars-ref="cars"></bean>
 
 </beans>
