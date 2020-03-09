@@ -1,6 +1,7 @@
 package com.yczlab.spring.aop.impl;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
@@ -45,6 +46,36 @@ public class LoggingAspect {
     public void AfterThrowing(JoinPoint joinPoint, Exception ex) {
         String methodName = joinPoint.getSignature().getName();
         System.out.println("The method " + methodName + " occurs exception: " + ex);
+    }
+
+    //声明该方法是一个环绕通知：
+    /*
+    * 环绕通知需要携带ProceedingJoinPoint类型的参数
+    * 环绕通知类似于动态代理的全过程：ProceedingJoinPoint类型的参数可以决定是否执行目标方法
+    * 且环绕通知必须要有返回值，返回值即为目标方法的返回值
+    * */
+    @Around("execution(* com.yczlab.spring.aop.impl.ArithmeticCalculator.*(..))")
+    public Object aroundMethod(ProceedingJoinPoint pjd) {
+        Object result = null;
+        String methodName = pjd.getSignature().getName();
+        List<Object> args = Arrays.asList(pjd.getArgs());
+
+        //执行目标方法
+        try {
+            //前置通知，注意与上面@Before注解配置的前置通知相区分
+            System.out.println("环绕通知中的前置通知：The method " + methodName + " begins with " + args);
+            result = pjd.proceed();
+            //返回通知，注意与上面@AfterReturning注解配置的返回通知相区分
+            System.out.println("环绕通知中的返回通知：The method " + methodName + " ends with " + result);
+        } catch (Throwable e) {
+            //异常通知，注意与上面@AfterThrowing注解配置的异常通知相区分
+            System.out.println("环绕通知中的异常通知：The method " + methodName + " occurs exception: " + e);
+        }
+        //后置通知，注意与上面@After注解配置的后置通知相区分
+        System.out.println("环绕通知中的后置通知：The method "+methodName+" ends");
+
+        //如果以上情况确有异常发生，返回的值result=null, 无法装换为int类型，还会发生其他异常，不要惊慌
+        return result;
     }
 
 }
