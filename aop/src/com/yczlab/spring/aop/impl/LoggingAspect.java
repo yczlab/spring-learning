@@ -2,6 +2,7 @@ package com.yczlab.spring.aop.impl;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -32,4 +33,13 @@ public class LoggingAspect {
         String methodName = joinPoint.getSignature().getName();
         System.out.println("The method "+methodName+" ends");
     }
+
+    //声明该方法是一个返回通知：在目标方法正常结束时（出异常时就不执行该通知），执行的通知
+    //在返回通知中可以访问目标方法的返回值，即执行结果
+    @AfterReturning(value = "execution(* com.yczlab.spring.aop.impl.ArithmeticCalculator.*(..))", returning = "result")
+    public void AfterReturning(JoinPoint joinPoint, Object result) {
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println("The method " + methodName + " ends with " + result);
+    }
+
 }

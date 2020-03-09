@@ -39,7 +39,16 @@ public class ArithmeticCalculatorLoggingProxy {
                 //日志
                 System.out.println("<-yczlab-> The method " + methodName + " begins with " + Arrays.asList(args));
                 //执行方法
-                Object result = method.invoke(target, args);
+                Object result = null;
+                try {
+                    //前置通知，类似于@Before注解
+                    result = method.invoke(target, args);
+                    //返回通知，可以访问到方法的返回值，类似于@AfterReturning注解
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                //后置通知，因为方法可能会出异常，所以访问不到方法的返回值
+
                 //日志
                 System.out.println("<-yczlab-> The method " + methodName + "ends with " + result);
                 return result;
