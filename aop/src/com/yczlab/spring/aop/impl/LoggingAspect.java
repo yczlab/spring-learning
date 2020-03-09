@@ -1,6 +1,7 @@
 package com.yczlab.spring.aop.impl;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -24,4 +25,11 @@ public class LoggingAspect {
         System.out.println("The method " + methodName + " begins with " + args);
     }
 
+    //声明该方法是一个后置通知：在目标方法执行后（无论是否发生异常），再执行的通知
+    //但是在后置通知中还不能访问目标方法的执行结果
+    @After("execution(* com.yczlab.spring.aop.impl.ArithmeticCalculator.*(int, int))")
+    public void afterMethod(JoinPoint joinPoint) {
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println("The method "+methodName+" ends");
+    }
 }
