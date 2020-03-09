@@ -46,6 +46,7 @@ public class ArithmeticCalculatorLoggingProxy {
                     //返回通知，可以访问到方法的返回值，类似于@AfterReturning注解
                 } catch (Exception e) {
                     e.printStackTrace();
+                    //异常通知，可以访问到方法出现的异常
                 }
                 //后置通知，因为方法可能会出异常，所以访问不到方法的返回值
 

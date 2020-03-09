@@ -1,10 +1,7 @@
 package com.yczlab.spring.aop.impl;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -40,6 +37,14 @@ public class LoggingAspect {
     public void AfterReturning(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().getName();
         System.out.println("The method " + methodName + " ends with " + result);
+    }
+
+    //声明该方法是一个异常通知：在目标方法出现异常时执行的通知
+    //在异常通知中可以访问到异常对象，且可以指定在出现特定异常时才执行通知代码
+    @AfterThrowing(value = "execution(* com.yczlab.spring.aop.impl.ArithmeticCalculator.*(..))", throwing = "ex")
+    public void AfterThrowing(JoinPoint joinPoint, Exception ex) {
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println("The method " + methodName + " occurs exception: " + ex);
     }
 
 }

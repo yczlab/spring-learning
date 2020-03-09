@@ -19,5 +19,10 @@ public class Main {
         System.out.println("*****************");
         result = arithmeticCalculator.div(12, 6);
         System.out.println("result" + result);
+
+        //以下程序故意发生异常，测试异常通知
+        System.out.println("*****************");
+        result = arithmeticCalculator.div(12, 0);
+        System.out.println("result" + result);
     }
 }
